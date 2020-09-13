@@ -1,1 +1,1 @@
-web: gunicorn apiCalculosCompartilhados.wsgi
+web: gunicorn apiCalculosCompartlhados.wsgi
