@@ -243,9 +243,22 @@ print.tskresult <- function(x,...)
     cat(x$sd)
     cat("#")
   }
-  cat(format(x$conf.int[1L]))
+  if(is.NaN(x$conf.int[1L])){
+    '-'
+  }
+  else{
+    cat(format(x$conf.int[1L]))
+  }
   cat("#")
-  cat(format(x$conf.int[2L]))
+  if(is.NaN(x$conf.int[2L])){
+    '-'
+  }
+  else{
+    cat(format(x$conf.int[2L]))
+  }
+  # cat(format(x$conf.int[1L]))
+  # cat("#")
+  # cat(format(x$conf.int[2L]))
   # cat(format(100 * attr(x$conf.int, "conf.level")),
   #     "percent confidence interval on LD50:\n",
   #     format(c(x$conf.int[1L], x$conf.int[2L])), "\n")
