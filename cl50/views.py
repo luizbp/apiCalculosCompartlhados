@@ -18,16 +18,17 @@ def calculo_cl50_json(request):
             mortalidades = request.data['m']
             c = Calculos()
             result = c.cl50(c=concentracoes, i=individuos, m=mortalidades)
-            return Response({'response' : result})
+            if(result['result']['code'] != 0): #Se o calculu não retornou nenhum erro
+                return Response({'response' : result})
+            else:
+                return Response({'response' : result}, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response({'response' : {"code" : 0, "result" : {"msg" : """
+            return Response({'response' : {"result" : {"msg" : """
                 Envie as informações no padrão abaixo:
                 {
                     "c" : "( *concentrações separas por "," *)",
                     "i" : "*Quantidade de individuos por concentração ex:"5" *",
                     "m" : "(*mortalidade separadas por "," na ordem das concentrações *)"
                 }
-            """}}})
-
-        # return Response({'CL50':round(float(result[0]),2), 'NEM':round(float(result[1]),2), 'min':round(float(result[2]),2), 'max':round(float(result[3]),2)})
+            """}}}, status=status.HTTP_400_BAD_REQUEST)
 
